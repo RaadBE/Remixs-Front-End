@@ -1,0 +1,83 @@
+*{
+    font-family: sans-serif;
+}
+@font-face {
+    font-family: 'Gladiola';
+    src: local('Gladiola'), url('/src/fonts/Gladiola.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.main-top {
+    /* border-radius: 2%; */
+    height: 100vh;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    background: linear-gradient(to right, #9C33C7, #5770FA, #5E4DC5);
+    /* background: linear-gradient(90deg, rgba(146,113,70,1) 30%, rgba(149,116,71,1) 56%, rgba(211,162,96,1) 100%); */
+    z-index: 999999999;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 30px;
+    font-family: 'Gladiola', sans-serif;
+
+}
+/*.search-bar {*/
+/*    width: 100%;*/
+/*    position: relative; !* This makes the search-bar a reference for the icon's absolute positioning *!*/
+/*}*/
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center; /* This will vertically center the input within the .search-bar */
+    justify-content: flex-start; /* Aligns children (input) to the start */
+    width: 100%;
+    max-width: 512px; /* Adjust this as needed to set the search bar's max width */
+    margin: 0 auto; /* This will center the .search-bar if its width is less than 100% */
+}
+
+/* Position the icon absolutely within the .search-bar */
+.search-bar i {
+    position: absolute;
+    left: 15px; /* Adjust to match the padding of the input */
+    color: #ffffff;
+    pointer-events: none;
+}
+
+/* Style the input, including padding to make room for the icon */
+.search-bar input {
+    flex-grow: 1; /* Ensures the input fills the space within the .search-bar */
+    height: 51px;
+    padding-left: 45px; /* Adjust this to prevent text from overlapping the icon */
+    border: 2px solid white;
+    border-radius: 15px;
+    background: transparent;
+    color: white;
+    /* Other styling as needed */
+}
+.search-bar input:checked{
+    border-style: none;
+}
+
+i{
+    color: #ffffff;
+}
+.main-top h1 {
+    font-size: 106px;
+    font-family: 'Gladiola', sans-serif;
+    color: white;
+}
+.button-custom-blue {
+    background-color: #0056B3;
+}
+.res {
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

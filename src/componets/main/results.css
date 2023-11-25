@@ -1,0 +1,54 @@
+.results-page {
+    background: linear-gradient(to right, #9C33C7, #5770FA, #5E4DC5);
+}
+
+.warpper {
+    padding: 60px;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+.landing-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 67px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 21%;
+    height: 300px;
+    background-color: white;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensures content does not overflow the card's bounds */
+}
+
+.card img {
+    width: 100%;
+    height: inherit;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0; /* Rounded corners on the top */
+}
+
+.card .text-overlay {
+    position: absolute;
+    bottom: 10px; /* Positioned at the bottom of the image */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white; /* Change as needed */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    padding: 10px 0; /* Padding on top and bottom */
+}
+
+.text-body {
+    height: 200px; /* Adjust height as needed */
+    overflow-y: hidden; /* Hide overflow */
+    padding: 10px; /* Padding inside the text body */
+    text-align: center; /* Center text */
+}
