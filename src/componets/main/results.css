@@ -2,17 +2,18 @@
     background: linear-gradient(to right, #9C33C7, #5770FA, #5E4DC5);
 }
 
-.warpper {
-    padding: 60px;
-    max-width: 95%;
+.wrapper {
+    padding: 4px;
+    max-width: 90%;
     margin: 0 auto;
 }
 
 .landing-main {
     display: flex;
+    gap: 34px;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    gap: 67px;
 }
 
 .card {
@@ -27,11 +28,14 @@
     justify-content: center;
     overflow: hidden; /* Ensures content does not overflow the card's bounds */
 }
-
+.card:hover {
+   background-color: transparent;
+    opacity: 0.8;
+}
 .card img {
     width: 100%;
     height: inherit;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 15px 15px 0 0; /* Rounded corners on the top */
 }
 
@@ -42,7 +46,6 @@
     width: 100%;
     text-align: center;
     color: white; /* Change as needed */
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
     padding: 10px 0; /* Padding on top and bottom */
 }
 
@@ -51,4 +54,34 @@
     overflow-y: hidden; /* Hide overflow */
     padding: 10px; /* Padding inside the text body */
     text-align: center; /* Center text */
+}
+.reddit-card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    height: 201px;
+    background-color: white;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.reddit-card p {
+    background-color: #7843e62e;
+    border-radius: 15px;
+    width: 97%;
+    height: 155px;
+    overflow-y: hidden;
+    overflow: hidden;
+}
+.ttp {
+    width: 40%;
+    display: flex;
+    padding-bottom: 40px;
+}
+.ttp h1 {
+    font-size: 53px;
+    color: #ffffff;
+    font-family: 'Gladiola', sans-serif;
 }

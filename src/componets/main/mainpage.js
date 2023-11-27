@@ -44,7 +44,7 @@ function Main() {
                     {searchResults.map((post, index) => {
                         if (post) {
                             return (
-                                <Card key={index} className="cards mt-6 w-96">
+                                <Card  key={index} className="cards mt-6 w-96">
                                     <CardHeader color="blue-gray" className="relative h-56">
                                         <img src={post.imgs} alt="card" className="h-full w-full object-cover" />
                                     </CardHeader>
