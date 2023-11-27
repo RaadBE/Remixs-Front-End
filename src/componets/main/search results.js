@@ -15,7 +15,7 @@ function Landing() {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://remxis-backend-d24bfcd27e65.herokuapp.com/search?q=${encodeURIComponent(query)}`);
+                const response = await axios.get(`https://walrus-app-opnse.ondigitalocean.app/search?q=${encodeURIComponent(query)}`);
                 setSearchResults(response.data);
             } catch (error) {
                 console.log('ERROR', error);
