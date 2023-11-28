@@ -90,7 +90,16 @@ function Landing() {
                     {Array.isArray(arrangedSearchResults) && (
                         arrangedSearchResults.map((post, index) => (
                             <div key={index} className={post.platform === 'reddit' ? "reddit-card" : "card"}>
-                                <b>{post.platform === 'reddit' ? `${post.title} posted by u/${post.author} on ${new Date(post.date * 1000).toUTCString()}` : ''}</b>
+                                <b>
+                                    {post.platform === 'reddit' ?
+                                        <>
+                                            <a href={post.url}>{post.title}</a>
+                                            {" posted by u/" + post.author + " on " + new Date(post.date * 1000).toUTCString()}
+                                        </> :
+                                        ''
+                                    }
+                                </b>
+
 
                                 {post.platform === 'reddit' && (
                                     <div className='reddit-cont'>
