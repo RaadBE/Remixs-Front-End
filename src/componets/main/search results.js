@@ -7,6 +7,7 @@ import DOMPurify from 'dompurify';
 
 function Landing() {
     const [searchResults, setSearchResults] = useState([]);
+    const [selectedVideo, setSelectedVideo] = useState(null);
     const location = useLocation();
 
     useEffect(() => {
@@ -15,7 +16,7 @@ function Landing() {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/search?q=${encodeURIComponent(query)}`);
+                const response = await axios.get(`https://floating-lake-46912-b5b89c67b62e.herokuapp.com/search?q=${encodeURIComponent(query)}`);
                 setSearchResults(response.data);
             } catch (error) {
                 console.log('ERROR', error);
@@ -31,43 +32,23 @@ function Landing() {
         return { __html: cleanMarkup };
     };
 
-
-    // Function to rearrange posts based on your specified pattern
-    const rearrangePosts = (posts) => {
-        let youtubeDailymotionPosts = posts.filter(post => post.platform === 'YouTube' || post.platform === 'Dailymotion');
-        let redditPosts = posts.filter(post => post.platform === 'reddit');
-
-        let rearrangedPosts = [];
-        let ydIndex = 0; // YouTube/Dailymotion index
-        let rIndex = 0;  // Reddit index
-
-        // Repeat the pattern until all posts are arranged
-        while (ydIndex < youtubeDailymotionPosts.length || rIndex < redditPosts.length) {
-            // One spot for YouTube/Dailymotion
-            if (ydIndex < youtubeDailymotionPosts.length) {
-                rearrangedPosts.push(youtubeDailymotionPosts[ydIndex++]);
-            }
-
-            // First spot for Reddit
-            if (rIndex < redditPosts.length) {
-                rearrangedPosts.push(redditPosts[rIndex++]);
-            }
-
-            // Second spot for Reddit
-            if (rIndex < redditPosts.length) {
-                rearrangedPosts.push(redditPosts[rIndex++]);
-            }
-
-            // One more spot for YouTube/Dailymotion
-            if (ydIndex < youtubeDailymotionPosts.length) {
-                rearrangedPosts.push(youtubeDailymotionPosts[ydIndex++]);
-            }
+    const selectVideo = (post) => {
+        if (post.platform === 'YouTube') {
+            setSelectedVideo({
+                title: post.title,
+                richtext: post.richtext,
+                videoId: post.videoId,
+                views: post.views,
+                platform: post.platform,
+                imgUrl: post.imgs
+            });
         }
-
-        return rearrangedPosts;
     }
 
-    const arrangedSearchResults = rearrangePosts(searchResults);
+    const getEmbedUrl = (videoId) => {
+        return `https://www.youtube.com/embed/${videoId}`;
+    };
+
     return (
         <div className='results-page'>
             <div className="wrapper">
@@ -87,39 +68,51 @@ function Landing() {
                     </div>
                 </div>
                 <div className='landing-main'>
-                    {Array.isArray(arrangedSearchResults) && (
-                        arrangedSearchResults.map((post, index) => (
-                            <div key={index} className={post.platform === 'reddit' ? "reddit-card" : "card"}>
-                                <b>
-                                    {post.platform === 'reddit' ?
-                                        <>
-                                            <a href={post.url}>{post.title}</a>
-                                            {" posted by u/" + post.author + " on " + new Date(post.date * 1000).toUTCString()}
-                                        </> :
-                                        ''
-                                    }
-                                </b>
-
-
-                                {post.platform === 'reddit' && (
+                    {Array.isArray(searchResults) && searchResults.map((post, index) => {
+                        if (post.platform === 'reddit' && post.imgs && post.richtext) {
+                            return (
+                                <div key={index} className="reddit-card" onClick={() => selectVideo(post)}>
+                                    <a href={post.url}>{post.title}</a>
+                                    <span>{" posted by u/" + post.author + " on " + new Date(post.date * 1000).toUTCString()}</span>
                                     <div className='reddit-cont'>
                                         <div className='left-imgg'>
-                                            {post.platform === 'reddit' && <img src={post.imgs} alt="card" />}
+                                            <img src={post.imgs} alt="post" />
                                         </div>
                                         <div className='reddit-text'>
-                                            {post.platform === 'reddit' && <div className='mark' dangerouslySetInnerHTML={createMarkup(post.richtext)} />}
+                                            <div className='mark' dangerouslySetInnerHTML={createMarkup(post.richtext)} />
                                         </div>
                                     </div>
-                                )}
-
-                                {post.platform !== 'reddit' && <img src={post.imgs} alt="card" className='' />}
-                                {post.platform !== 'reddit' && <p className='text-overlay'>{post.views}</p>}
-                            </div>
-                        ))
-                    )}
+                                </div>
+                            );
+                        } else if (post.platform !== 'reddit') {
+                            return (
+                                <div key={index} className="card" onClick={() => selectVideo(post)}>
+                                    <img src={post.imgs} alt={post.title} />
+                                    {post.platform !== 'reddit' && <p className='text-overlay'>{post.views}</p>}
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
                 </div>
             </div>
+            {selectedVideo && selectedVideo.platform === 'YouTube' && (
+                <div className="video-modal" onClick={() => setSelectedVideo(null)}>
+                    <div className="video-container" onClick={e => e.stopPropagation()}>
+                        <iframe
+                            width="560"
+                            height="315"
+                            src={getEmbedUrl(selectedVideo.videoId)}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen>
+                        </iframe>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
+
 export default Landing;
