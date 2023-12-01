@@ -9,6 +9,11 @@ function Landing() {
     const [searchResults, setSearchResults] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const location = useLocation();
+    const [showContent, setShowContent] = useState(false);
+
+    const toggleContent = () => {
+        setShowContent(!showContent);
+    };
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -22,8 +27,9 @@ function Landing() {
                 console.log('ERROR', error);
             }
         };
+
         fetchData();
-    }, [location.search]);
+    }, [location.search]); // location.search dependency to re-run the script on location change
 
     const createMarkup = (markdownText) => {
         const adjustedText = markdownText.replace(/\n\n/g, '\n');
@@ -66,6 +72,25 @@ function Landing() {
                             placeholder="Search here"
                         />
                     </div>
+                    <i className="fa-solid fills fa-filter" onClick={toggleContent}></i>
+                    {showContent && (
+                        <div className='fill-card'>
+                            <h1>Sourcses</h1>
+                            <label>
+                                Reddit
+                                <input type="checkbox" />
+                            </label>
+                            <label>
+                                Yotube
+                                <input type="checkbox" />
+                            </label>
+                            <label>
+                                Dailymotion
+                                <input type="checkbox" />
+                            </label>
+                        </div>
+                    )}
+
                 </div>
                 <div className='landing-main'>
                     {Array.isArray(searchResults) && searchResults.map((post, index) => {
@@ -78,6 +103,7 @@ function Landing() {
                                         <div className='left-imgg'>
                                             <img src={post.imgs} alt="post" />
                                         </div>
+                                        <script async="async" data-cfasync="false" src="//thubanoa.com/1?z=6686960"></script>
                                         <div className='reddit-text'>
                                             <div className='mark' dangerouslySetInnerHTML={createMarkup(post.richtext)} />
                                         </div>

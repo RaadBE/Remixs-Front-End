@@ -24,7 +24,7 @@ function Main() {
         <div>
             <div className='main-top'>
                 <div>
-                    <Link to='tos'></Link>
+                    <script async="async" data-cfasync="false" src="//thubanoa.com/1?z=6686960"></script>
                 </div>
                 <h1>Remix</h1>
                 <div className='search-bar'>
